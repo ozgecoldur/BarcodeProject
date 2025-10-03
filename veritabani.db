@@ -1,0 +1,29 @@
+import sqlite3
+
+# Veritabanı dosyasını oluştur
+conn = sqlite3.connect("veritabani.db")
+cursor = conn.cursor()
+
+# Ürünler tablosunu oluştur
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS urunler (
+    barkod TEXT PRIMARY KEY,
+    urun_adi TEXT NOT NULL,
+    marka TEXT,
+    fiyat REAL
+)
+""")
+
+# Örnek ürünler ekle
+veriler = [
+    ("8690504039278", "Dana Kıyma 300g", "Maret", 45.90),
+    ("8691234567890", "Hindi Salam 600g", "Maret", 38.50),
+    ("8699999999999", "Peynir 500g", "Sütaş", 32.75)
+]
+
+cursor.executemany("INSERT OR IGNORE INTO urunler (barkod, urun_adi, marka, fiyat) VALUES (?, ?, ?, ?)", veriler)
+
+conn.commit()
+conn.close()
+
+print("✅ Veritabanı başarıyla oluşturuldu ve ürünler eklendi.")

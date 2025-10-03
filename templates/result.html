@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barkod Sonuçları</title>
+  <style>
+    body { font-family: Arial; background:#f3f4f6; margin:0; padding:20px; }
+    .container { background:#fff; padding:25px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); max-width:800px; margin:auto; }
+    h1,h2,h3 { text-align:center; }
+    .images { display:flex; flex-direction:column; gap:20px; margin-top:20px; }
+    .image-box { text-align:center; }
+    .image-box img { max-width:100%; border-radius:8px; border:1px solid #ddd; }
+    @media(min-width:600px){ .images{ flex-direction:row; justify-content:space-around; } .image-box{ width:45%; } }
+    a { display:block; text-align:center; margin-top:20px; text-decoration:none; color:#2563eb; font-weight:bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Barkod Sonuçları</h1>
+    <h2>Barkod Değeri:</h2>
+    <p>{{ barcode_value }}</p>
+    <div class="images">
+      <div class="image-box">
+        <h3>Orijinal</h3>
+        <img src="{{ url_for('show_image', filename=original_filename) }}" alt="Orijinal Barkod">
+      </div>
+      <div class="image-box">
+        <h3>İşlenmiş</h3>
+        <img src="{{ url_for('show_image', filename=processed_filename) }}" alt="İşlenmiş Barkod">
+      </div>
+    </div>
+    <a href="{{ url_for('index') }}">Yeni Barkod Yükle</a>
+  </div>
+</body>
+</html>
