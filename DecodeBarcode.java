@@ -6,6 +6,9 @@ import com.google.zxing.multi.GenericMultipleBarcodeReader;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class DecodeBarcode {
     public static void main(String[] args) {
@@ -26,7 +29,19 @@ public class DecodeBarcode {
             LuminanceSource source = new BufferedImageLuminanceSource(image);
             BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 
+            // 🔥 HINTS TANIMLANIYOR 🔥
+            Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
+            hints.put(DecodeHintType.POSSIBLE_FORMATS, Arrays.asList(
+                    BarcodeFormat.CODE_128,
+                    BarcodeFormat.EAN_13,
+                    BarcodeFormat.EAN_8,
+                    BarcodeFormat.UPC_A,
+                    BarcodeFormat.UPC_E));
+            hints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE); // Opsiyonel ama önerilir
+
             MultiFormatReader baseReader = new MultiFormatReader();
+            baseReader.setHints(hints); // 🔥 HINTS BURAYA UYGULANIYOR 🔥
+
             GenericMultipleBarcodeReader multiReader = new GenericMultipleBarcodeReader(baseReader);
             Result[] results = multiReader.decodeMultiple(bitmap);
 
@@ -47,5 +62,3 @@ public class DecodeBarcode {
         }
     }
 }
-// javac -cp "lib/core-3.5.3.jar;lib/javase-3.5.3.jar;lib/jcommander-1.81.jar;."
-// DecodeBarcode.java
