@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <title>Barkod Yükle</title>
+  <meta charset="UTF-8">
+  <title>Barkod ve OCR Uygulaması</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; background: #f9f9f9; }
+    .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h2 { text-align: center; color: #333; }
+    form { text-align: center; margin-top: 20px; }
+    input[type=file] { margin: 10px 0; }
+    button { background: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #218838; }
+  </style>
 </head>
 <body>
-    <h1>Barkodlu Ürün Etiketi Yükle</h1>
+  <div class="container">
+    <h2>Barkod & OCR Yükleme</h2>
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept="image/*" required>
-        <button type="submit">Yükle ve Oku</button>
+      <input type="file" name="file" accept="image/*" required><br>
+      <button type="submit">Yükle ve Tara</button>
     </form>
+  </div>
 </body>
 </html>

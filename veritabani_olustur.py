@@ -20,8 +20,8 @@ def init_db():
         # Örnek ürünler ekle
         urunler = [
             ("8697471724110004526628", "Namet Soslu Pişmiş Dondurulmuş Dana Misket", "Ülker", 15.0),
-            ("0108697471723518100004529574", "Ayran 1L", "Sütaş", 12.5),
-            ("8690812410012", "Çikolata", "Nestle", 10.0),
+            ("0108697471723723100001111111", "Ayran 1L", "Sütaş", 12.5),
+            ("012148613", "Çikolata", "Nestle", 10.0),
             ("8690526098723", "Kahve 250g", "Nescafe", 45.0),
             ("8690889098123", "Soda 500ml", "Saka", 8.0)
         ]

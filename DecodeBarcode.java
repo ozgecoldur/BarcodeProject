@@ -6,8 +6,8 @@ import com.google.zxing.multi.GenericMultipleBarcodeReader;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.Map;
 
 public class DecodeBarcode {
@@ -29,21 +29,18 @@ public class DecodeBarcode {
             LuminanceSource source = new BufferedImageLuminanceSource(image);
             BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 
-            // 🔥 HINTS TANIMLANIYOR 🔥
+            // ✅ Okunacak barkod tiplerini özellikle belirtelim
             Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
-            hints.put(DecodeHintType.POSSIBLE_FORMATS, Arrays.asList(
-                    BarcodeFormat.CODE_128,
-                    BarcodeFormat.EAN_13,
-                    BarcodeFormat.EAN_8,
-                    BarcodeFormat.UPC_A,
-                    BarcodeFormat.UPC_E));
-            hints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE); // Opsiyonel ama önerilir
+            hints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
+            hints.put(DecodeHintType.POSSIBLE_FORMATS,
+                    EnumSet.of(BarcodeFormat.CODE_128, BarcodeFormat.EAN_13, BarcodeFormat.UPC_A));
 
             MultiFormatReader baseReader = new MultiFormatReader();
-            baseReader.setHints(hints); // 🔥 HINTS BURAYA UYGULANIYOR 🔥
+            baseReader.setHints(hints);
 
             GenericMultipleBarcodeReader multiReader = new GenericMultipleBarcodeReader(baseReader);
-            Result[] results = multiReader.decodeMultiple(bitmap);
+
+            Result[] results = multiReader.decodeMultiple(bitmap, hints);
 
             if (results == null || results.length == 0) {
                 System.out.println("Hata: Barkod bulunamadı.");
@@ -52,6 +49,7 @@ public class DecodeBarcode {
 
             for (Result result : results) {
                 System.out.println("Parsed result: " + result.getText());
+                System.out.println("Format: " + result.getBarcodeFormat());
             }
 
         } catch (NotFoundException e) {
